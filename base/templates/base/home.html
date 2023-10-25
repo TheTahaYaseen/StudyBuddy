@@ -10,7 +10,8 @@
                     <h5 class="text-xl font-bold mb-2">{{ room.name }}</h5>
                     <p class="text-lg text-gray-600">{{ room.description }}</p>
                 </a>
-                <a href="{% url 'update-room' room.id %}" class="mt-4 block text-blue-500 font-semibold hover:underline">Update Room</a>
+                <a href="{% url 'update-room' room.id %}" class="mt-4 block text-blue-500 font-semibold hover:underline">Update</a>
+                <a href="{% url 'delete-room' room.id %}" class="mt-4 block text-blue-500 font-semibold hover:underline">Delete</a>
             </div>
         {% endfor %}
     </div>

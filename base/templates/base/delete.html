@@ -1,0 +1,18 @@
+{% extends "mainlayout.html" %}
+
+{% block content %}
+<div class="container mx-auto mt-8">
+    <form method="POST" class="max-w-md mx-auto p-6 bg-white rounded-md shadow-md">
+        {% csrf_token %}
+        <p class="text-xl font-semibold text-center mb-4">
+            Are You Sure You Want To Delete {{ objectToDelete }}?
+        </p>
+        <div class="text-center">
+            <a href="{{ request.META.HTTP_REFERER }}" class="text-blue-500 hover:underline block mb-4">
+                Go Back
+            </a>
+            <input type="submit" value="Confirm" class="bg-red-500 text-white font-bold py-2 px-4 rounded-full hover:bg-red-700 hover:shadow-md transition duration-300">
+        </div>
+    </form>
+</div>
+{% endblock content %}
