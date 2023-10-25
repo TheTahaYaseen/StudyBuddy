@@ -1,7 +1,10 @@
+from django.http import HttpResponse
+
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from django.db.models import Q
 
@@ -12,6 +15,9 @@ from .forms import RoomForm
 # Create your views here.
 
 def login_view(request):
+
+    if request.user.is_authenticated:
+        return redirect("home")
 
     if request.method == "POST":
         username = request.POST.get("username")
@@ -61,6 +67,7 @@ def room(request, primary_key):
     context = {"room": room}
     return render(request,  "base/room.html", context)   
 
+@login_required(login_url="/login")
 def create_room(request):
     form = RoomForm()
     
@@ -73,10 +80,14 @@ def create_room(request):
     context = {"form": form, "isUpdate": False}
     return render(request, "base/room_form.html", context)
 
+@login_required(login_url="/login")
 def update_room(request, primary_key):
     
     room = Room.objects.get(id = primary_key)
     
+    if request.user != room.host:
+        return HttpResponse("Only The Creator / Host Can Update The Room")
+
     form = RoomForm(instance = room)
 
     if request.method == "POST":
@@ -89,8 +100,14 @@ def update_room(request, primary_key):
 
     return render(request, "base/room_form.html", context)
 
+@login_required(login_url="/login")
 def delete_room(request, primary_key):
+
     room = Room.objects.get(id = primary_key)
+
+    if request.user != room.host:
+        return HttpResponse("Only The Creator / Host Can Delete The Room")
+
     if request.method == "POST":
         room.delete()
         return redirect("home")
