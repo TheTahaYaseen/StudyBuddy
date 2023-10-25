@@ -1,0 +1,18 @@
+{% extends "mainlayout.html" %}
+
+{% block content %}
+
+<div class="container mx-auto mt-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {% for room in rooms %}
+            <div class="bg-white border p-4 rounded-md shadow">
+                <a href="{% url 'room' room.id %}">
+                    <h5 class="text-xl font-bold mb-2">{{ room.id }}</h5>
+                </a>
+                <p class="text-lg">{{ room.name }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}
