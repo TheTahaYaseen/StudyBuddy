@@ -1,9 +1,9 @@
 <nav class="bg-blue-500 p-4 text-white">
     <div class="container mx-auto flex justify-between items-center">
-        <a href="#" class="text-2xl font-bold">Our Logo</a>
+        <a href="{% url 'home' %}" class="text-2xl font-bold">Study Buddy</a>
         <ul class="flex space-x-4">
-            <li><a href="/" class="hover:underline">Home</a></li>
-            <li><a href="/room/1" class="hover:underline">Rooms</a></li>
+            <li><a href="{% url 'home' %}" class="hover:underline">Home</a></li>
+            <li><a href="{% url 'room' primary_key=1 %}" class="hover:underline">Rooms</a></li>
         </ul>
     </div>
 </nav>
