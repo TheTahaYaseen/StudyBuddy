@@ -5,5 +5,6 @@ urlpatterns = [
     path("", views.home, name = "home"),
     # path("room/<datatype:identifier>", views.room, name = "room")
     path("room/<str:primary_key>", views.room, name = "room"),
-    path("create-room/", views.create_room, name = "create-room")
+    path("create-room/", views.create_room, name = "create-room"),
+    path("create-room/<str:primary_key>", views.update_room, name = "update-room")
 ]

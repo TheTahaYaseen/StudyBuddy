@@ -26,5 +26,21 @@ def create_room(request):
             form.save()
             return redirect('home')
 
-    context = {"form": form}
+    context = {"form": form, "isUpdate": False}
+    return render(request, "base/room_form.html", context)
+
+def update_room(request, primary_key):
+    
+    room = Room.objects.get(id = primary_key)
+    
+    form = RoomForm(instance = room)
+
+    if request.method == "POST":
+        form = RoomForm(request.POST, instance=room)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+
+    context = {"form": form, "isUpdate": True}
+
     return render(request, "base/room_form.html", context)

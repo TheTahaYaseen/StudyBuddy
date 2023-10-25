@@ -3,8 +3,12 @@
 {% block content %}
 <div class="container mx-auto mt-8">
     <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-bold mb-4">Create a Room</h2>
-<!-- custom_form.html -->
+        {% if isUpdate %}
+            <h2 class="text-2xl font-bold mb-4">Update a Room</h2>
+        {% else %}
+            <h2 class="text-2xl font-bold mb-4">Create a Room</h2>
+        {% endif %}
+            <!-- custom_form.html -->
 <form method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -13,7 +17,13 @@
             {{ field }}
         </div>
     {% endfor %}
-    <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 hover:shadow-md transition duration-300">Create</button>
+
+    {% if isUpdate %}
+        <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 hover:shadow-md transition duration-300">Update</button>
+    {% else %}
+        <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 hover:shadow-md transition duration-300">Create</button>
+    {% endif %}    
+
 </form>
     </div>
 </div>

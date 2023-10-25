@@ -1,18 +1,18 @@
 {% extends "mainlayout.html" %}
 
 {% block content %}
-
 <div class="container mx-auto mt-8">
+    <a href="{% url 'create-room' %}" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 hover:shadow-md transition duration-300 mb-4 inline-block">Create Room</a>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {% for room in rooms %}
             <div class="bg-white border p-4 rounded-md shadow">
                 <a href="{% url 'room' room.id %}">
-                    <h5 class="text-xl font-bold mb-2">{{ room.id }}</h5>
+                    <h5 class="text-xl font-bold mb-2">{{ room.name }}</h5>
+                    <p class="text-lg text-gray-600">{{ room.description }}</p>
                 </a>
-                <p class="text-lg">{{ room.name }}</p>
+                <a href="{% url 'update-room' room.id %}" class="mt-4 block text-blue-500 font-semibold hover:underline">Update Room</a>
             </div>
         {% endfor %}
     </div>
 </div>
-
 {% endblock content %}

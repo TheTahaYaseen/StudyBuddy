@@ -17,9 +17,14 @@ class Room(models.Model):
     # participants = 
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-    
+
     def __str__(self):
         return str(self.name)
+    
+    class Meta:
+        # ordering = ["(without '-', it goes ascending]updated", "(without '-', it goes ascending]created"]
+        # ordering = ["(with '-', it goes descending]updated", "(with '-', it goes descending]created"]
+        ordering = ["-updated", "-created"]
     
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
