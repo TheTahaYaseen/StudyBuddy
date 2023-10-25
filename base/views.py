@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
+from django.contrib.auth import authenticate, login, logout
 
 from django.db.models import Q
 
@@ -19,7 +20,17 @@ def login_view(request):
         try:
             user = User.objects.get(username = username)
         except User.DoesNotExist:
-            messages.error(request, "Document deleted.")
+            messages.error(request, "Username Does Not Exist!")
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect("home") 
+        else:
+            messages.error(request, "Username Or Password Is Incorrect!")
+        
+
 
     context = {}
     return render(request, "base/login_register.html", context)
