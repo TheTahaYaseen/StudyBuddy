@@ -1,9 +1,14 @@
 <nav class="bg-blue-500 p-4 text-white">
     <div class="container mx-auto flex justify-between items-center">
         <a href="{% url 'home' %}" class="text-2xl font-bold">Study Buddy</a>
-        <ul class="flex space-x-4">
-            <li><a href="{% url 'home' %}" class="hover:underline">Home</a></li>
-            <li><a href="{% url 'room' primary_key=1 %}" class="hover:underline">Rooms</a></li>
-        </ul>
+        <div class="flex items-center space-x-4">
+            <ul class="flex space-x-4">
+                <li><a href="{% url 'home' %}" class="hover:underline">Home</a></li>
+                <li><a href="{% url 'room' primary_key=1 %}" class="hover:underline">Rooms</a></li>
+            </ul>
+            <form action="{% url 'home' %}" method="GET">
+                <input type="text" name="search" placeholder="Search" class="px-3 py-2 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-blue-400">
+            </form>
+        </div>
     </div>
 </nav>
