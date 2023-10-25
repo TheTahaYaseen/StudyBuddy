@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 
 from .models import Room, Topic
 from .forms import RoomForm
+from django.db.models import Q
 
 # Create your views here.
 
@@ -13,10 +14,16 @@ def home(request):
     if search == None or search == "All":
         rooms = Room.objects.all()
     else:    
-        rooms = Room.objects.filter(topic__name__icontains=search)
+        rooms = Room.objects.filter(
+            Q(topic__name__icontains=search) |
+            Q(name__icontains=search) |
+            Q(description__icontains=search) 
+        )
+
+    rooms_count = rooms.count()
 
     topics = Topic.objects.all()
-    context = {"rooms" : rooms, "topics": topics}
+    context = {"rooms" : rooms, "topics": topics, "rooms_count": rooms_count}
     return render(request,  "base/home.html", context)
 
 def room(request, primary_key):
