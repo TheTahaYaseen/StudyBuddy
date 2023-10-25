@@ -1,11 +1,28 @@
-from django.http import HttpResponse
+from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from .models import Room, Topic
-from .forms import RoomForm
+
 from django.db.models import Q
 
+from .models import Room, Topic, User
+from .forms import RoomForm
+
+
 # Create your views here.
+
+def login_view(request):
+
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        try:
+            user = User.objects.get(username = username)
+        except User.DoesNotExist:
+            messages.error(request, "Document deleted.")
+
+    context = {}
+    return render(request, "base/login_register.html", context)
 
 def home(request):
 

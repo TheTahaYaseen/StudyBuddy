@@ -1,6 +1,6 @@
 <nav class="bg-blue-500 p-4 text-white">
     <div class="container mx-auto flex justify-between items-center">
-        <a href="{% url 'home' %}" class="text-2xl font-bold">Study Buddy</a>
+        <a href="{% url 'home' %}" class="text-2xl font-bold hover:text-yellow-400 transition duration-300">Study Buddy</a>
         <div class="flex items-center space-x-4">
             <ul class="flex space-x-4">
                 <li><a href="{% url 'home' %}" class="hover:underline">Home</a></li>
@@ -9,6 +9,7 @@
             <form action="{% url 'home' %}" method="GET">
                 <input type="text" name="search" placeholder="Search" class="px-3 py-2 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-blue-400">
             </form>
+            <a href="{% url 'login' %}" class="hover:underline">Login</a>
         </div>
     </div>
 </nav>
