@@ -29,11 +29,13 @@ def login_view(request):
             return redirect("home") 
         else:
             messages.error(request, "Username Or Password Is Incorrect!")
-        
-
 
     context = {}
     return render(request, "base/login_register.html", context)
+
+def logout_view(request):
+    logout(request)
+    return redirect("home")
 
 def home(request):
 

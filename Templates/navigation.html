@@ -9,7 +9,11 @@
             <form action="{% url 'home' %}" method="GET">
                 <input type="text" name="search" placeholder="Search" class="px-3 py-2 text-gray-700 border rounded-md focus:outline-none focus:ring focus:ring-blue-400">
             </form>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="hover:underline">Logout</a>
+            {% else %}
             <a href="{% url 'login' %}" class="hover:underline">Login</a>
+            {% endif %}
         </div>
     </div>
 </nav>
