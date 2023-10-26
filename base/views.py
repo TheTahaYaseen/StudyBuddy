@@ -149,3 +149,17 @@ def delete_room(request, primary_key):
         return redirect("home")
     context = {"objectToDelete": f"The Room: {room}"}
     return render(request, "base/delete.html", context)
+
+@login_required(login_url="/login")
+def delete_message(request, primary_key):
+
+    message = Message.objects.get(id = primary_key)
+
+    if request.user != message.user:
+        return HttpResponse("Only The Commenter Can Delete The Comment")
+
+    if request.method == "POST":
+        message.delete()
+        return redirect("home")
+    context = {"objectToDelete": f"The Message: {message}"}
+    return render(request, "base/delete.html", context)

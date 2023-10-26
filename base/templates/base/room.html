@@ -22,7 +22,9 @@
             <div class="mb-4">
                 <h5 class="text-gray-600 text-sm">{{ conversation.user }} - {{ conversation.created|timesince }} ago</h5>
                 <p class="text-gray-700">{{ conversation.body }}</p>
-                <a href="{% url 'delete_message' %}"></a>
+                {% if request.user == conversation.user %}
+                <a href="{% url 'delete-message' conversation.id %}">Delete</a>
+                {% endif %}
                 <hr class="mt-2 mb-2">
             </div>
         {% endfor %}
