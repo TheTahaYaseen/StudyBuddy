@@ -1,0 +1,18 @@
+{% extends "mainlayout.html" %}
+
+{% block content %}
+<div class="container mx-auto mt-8">
+    <div class="py-4">
+        <div class="container mx-auto">
+            {% include "base/topic_component.html" %}
+        </div>
+    </div>
+    <p class="text-gray-600 mb-2">{{rooms_count}} rooms available.</p>
+    <a href="{% url 'create-room' %}" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 hover:shadow-md transition duration-300 mb-4 inline-block">Create Room</a>
+    {% include "base/rooms_component.html" %}
+
+    {% include "base/activity_component.html" %}
+    
+</div>
+
+{% endblock content %}
