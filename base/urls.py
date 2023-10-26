@@ -8,6 +8,7 @@ urlpatterns = [
     path("", views.home, name = "home"),
     # path("room/<datatype:identifier>", views.room, name = "room")
     path("room/<str:primary_key>", views.room, name = "room"),
+    path("user_profile/<str:primary_key>", views.user_profile, name = "user-profile"),
     path("create-room/", views.create_room, name = "create-room"),
     path("update-room/<str:primary_key>", views.update_room, name = "update-room"),
     path("delete-room/<str:primary_key>", views.delete_room, name = "delete-room"),
