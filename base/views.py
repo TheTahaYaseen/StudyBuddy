@@ -10,7 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.db.models import Q
 
-from .models import Room, Topic, User
+from .models import Room, Topic, User, Message
 from .forms import RoomForm
 
 
@@ -85,8 +85,20 @@ def home(request):
     return render(request,  "base/home.html", context)
 
 def room(request, primary_key):
+    
     room = Room.objects.get(id = primary_key)
-    context = {"room": room}
+
+    conversations = room.message_set.all().order_by("-created")
+
+    if request.method == "POST":
+        message = Message.objects.create(
+            user = request.user,
+            room = room,
+            body = request.POST.get("body")
+        )
+        return redirect("room", primary_key=room.id)
+
+    context = {"room": room, "conversations": conversations}
     return render(request,  "base/room.html", context)   
 
 @login_required(login_url="/login")
