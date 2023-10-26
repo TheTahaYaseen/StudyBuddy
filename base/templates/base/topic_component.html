@@ -1,0 +1,13 @@
+<div class="flex items-center justify-between">
+    <h2 class="text-gray-800 text-3xl font-semibold">Browse Topics</h2>
+    <ul class="flex space-x-4">
+        <li>
+            <a href="{% url 'home' %}?search=All" class="text-gray-600 hover:text-indigo-500 hover:underline transition duration-300">All</a>
+        </li>
+        {% for topic in topics %}
+        <li>
+            <a href="{% url 'home' %}?search={{topic.name}}" class="text-gray-600 hover:text-indigo-500 hover:underline transition duration-300">{{topic.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
