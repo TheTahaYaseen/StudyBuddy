@@ -13,25 +13,23 @@
         <p class="text-gray-700 text-sm mt-2">{{ room.description }}</p>
     </div>
 
-    <br>
-
-    <div>
-        <h1 class="mt-4 text-xl">Conversations</h1>
-        <hr class="mt-2 mb-4">
+    <div class="mt-8">
+        <h1 class="text-xl font-bold">Conversations</h1>
+        <hr class="my-2">
         {% for conversation in conversations %}
             <div class="mb-4">
                 <h5 class="text-gray-600 text-sm">{{ conversation.user }} - {{ conversation.created|timesince }} ago</h5>
                 <p class="text-gray-700">{{ conversation.body }}</p>
                 {% if request.user == conversation.user %}
-                <a href="{% url 'delete-message' conversation.id %}">Delete</a>
+                <a href="{% url 'delete-message' conversation.id %}" class="text-blue-500 font-bold hover:underline">Delete</a>
                 {% endif %}
-                <hr class="mt-2 mb-2">
+                <hr class="my-2">
             </div>
         {% endfor %}
     </div>
 
     {% if request.user.is_authenticated %}
-    <div>
+    <div class="mt-8">
         <form method="POST">
             {% csrf_token %}
             <input type="text" name="body" placeholder="Write your message here....." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-400 mt-2">
@@ -39,18 +37,15 @@
     </div>
     {% endif %}
 
-    <br>
-
-    <div>
-        <h1 class="mt-4 text-xl">Participants</h1>
-        <hr class="mt-2 mb-4">
+    <div class="mt-8">
+        <h1 class="text-xl font-bold">Participants</h1>
+        <hr class="my-2">
         {% for participant in participants %}
             <div class="mb-4">
                 <p class="text-gray-700">{{ participant.username }}</p>
-                <hr class="mt-2 mb-2">
+                <hr class="my-2">
             </div>
         {% endfor %}
     </div>
-
 </div>
 {% endblock content %}

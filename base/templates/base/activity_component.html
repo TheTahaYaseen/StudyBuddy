@@ -1,0 +1,15 @@
+<div class="mt-8">
+    <h3 class="text-xl font-semibold">Activity Feed</h3>
+    <hr class="my-2">
+    {% for activity in activity_feed %}
+        <div class="mb-4">
+            <small class="text-gray-600">@{{activity.user}} - {{activity.created|timesince}} ago    </small>
+            <h6 class="text-lg font-semibold">replied to "{{activity.room}}"</h6>
+            <p class="text-gray-700">{{activity}}</p>
+            {% if request.user == activity.user %}
+            <a href="{% url 'delete-message' activity.id %}" class="text-red-500 font-semibold hover:underline">Delete</a>
+            {% endif %}
+            <hr class="my-2">
+        </div>
+    {% endfor %}
+</div>
