@@ -67,21 +67,23 @@ def register_view(request):
 
 def home(request):
 
-    search = request.GET.get("search")
+    search = request.GET.get("search") if request.GET.get("search") else ""
 
-    if search == None or search == "All":
-        rooms = Room.objects.all()
-    else:    
-        rooms = Room.objects.filter(
-            Q(topic__name__icontains=search) |
-            Q(name__icontains=search) |
-            Q(description__icontains=search) 
-        )
+    rooms = Room.objects.filter(
+        Q(topic__name__icontains=search) |
+        Q(name__icontains=search) |
+        Q(description__icontains=search) 
+    )
 
+    activity_feed = Message.objects.filter(
+            Q(room__name__icontains=search)
+    )
+    
     rooms_count = rooms.count()
 
     topics = Topic.objects.all()
-    context = {"rooms" : rooms, "topics": topics, "rooms_count": rooms_count}
+    context = {"rooms" : rooms, "topics": topics, "rooms_count": rooms_count, "activity_feed": activity_feed}
+    
     return render(request,  "base/home.html", context)
 
 def room(request, primary_key):

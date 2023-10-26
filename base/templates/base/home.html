@@ -36,4 +36,21 @@
         {% endfor %}
     </div>
 </div>
+
+<div>
+    <h3>Activity Feed</h3>
+    <hr>
+    {% for activity in activity_feed %}
+
+        <small>@{{activity.user}} - @{{activity.created|timesince}}</small>
+        <h6>replied to "{{activity.room}}"</h6>
+        <p>{{activity}}</p>
+        {% if request.user == activity.user %}
+        <a href="{% url 'delete-message' activity.id %}">Delete</a>
+        {% endif %}
+        <hr>
+
+    {% endfor %}
+</div>
+
 {% endblock content %}
