@@ -3,7 +3,7 @@
     <hr class="my-2">
     {% for activity in activity_feed %}
         <div class="mb-4">
-            <small class="text-gray-600">@{{activity.user}} - {{activity.created|timesince}} ago    </small>
+            <small class="text-gray-600"><a href="{% url 'user-profile' activity.user.id %}">@{{activity.user}}</a> - {{activity.created|timesince}} ago    </small>
             <h6 class="text-lg font-semibold">replied to "{{activity.room}}"</h6>
             <p class="text-gray-700">{{activity}}</p>
             {% if request.user == activity.user %}
