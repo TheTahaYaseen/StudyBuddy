@@ -1,0 +1,14 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {% for room in rooms %}
+    <div class="bg-white border p-4 rounded-md shadow">
+        <a href="{% url 'room' room.id %}">
+            <h5 class="text-xl font-bold mb-2">{{ room.name }}</h5>
+            <p class="text-lg text-gray-600">{{ room.description }}</p>
+        </a>
+        {% if request.user == room.host %}
+        <a href="{% url 'update-room' room.id %}" class="mt-4 block text-blue-500 font-semibold hover:underline">Update</a>
+        <a href="{% url 'delete-room' room.id %}" class="mt-2 block text-red-500 font-semibold hover:underline">Delete</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
