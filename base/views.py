@@ -67,7 +67,7 @@ def register_view(request):
 
 def home(request):
 
-    search = request.GET.get("search") if request.GET.get("search") else "f"
+    search = request.GET.get("search") if request.GET.get("search") else ""
 
     rooms = Room.objects.filter(
         Q(topic__name__icontains=search) |
@@ -105,8 +105,12 @@ def room(request, primary_key):
     context = {"room": room, "conversations": conversations, "participants": participants}
     return render(request,  "base/room.html", context)   
 
-def user_profile(request):
-    context = {}
+def user_profile(request, primary_key):
+
+    user = User.objects.get(id = primary_key)
+    rooms = user.room_set.all()
+
+    context = {"user": user, "rooms": rooms}
 
     return render(request,  "base/profile.html", context)   
 
