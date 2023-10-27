@@ -1,30 +1,62 @@
 {% extends "mainlayout.html" %}
 
 {% block content %}
-<div class="container mx-auto mt-8">
-    <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
-        {% if isUpdate %}
-            <h2 class="text-2xl font-bold mb-4">Update a Room</h2>
+  <main class="create-room layout">
+    <div class="container">
+      <div class="layout__box">
+        <div class="layout__boxHeader">
+          <div class="layout__boxTitle">
+            <a href="{% url 'home' %}">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                <title>arrow-left</title>
+                <path
+                  d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z">
+                </path>
+              </svg>
+            </a>
+            {% if isUpdate %}
+            <h3 class="text-2xl font-bold mb-4">Update a Room</h3>
         {% else %}
-            <h2 class="text-2xl font-bold mb-4">Create a Room</h2>
+            <h3 class="text-2xl font-bold mb-4">Create a Room</h3>
         {% endif %}
-            <!-- custom_form.html -->
-<form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-        <div class="mb-4 items-center align-middle">
-            <label for="{{ field.id }}" class="text-gray-500 inline-block w-1/4">{{ field.label }}</label>
-            {{ field }}
+          </div>
         </div>
-    {% endfor %}
+        <div class="layout__body">
+          <form class="form" method="POST">
+            {% csrf_token %}
 
-    {% if isUpdate %}
-        <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 hover:shadow-md transition duration-300">Update</button>
-    {% else %}
-        <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700 hover:shadow-md transition duration-300">Create</button>
-    {% endif %}    
+            <div class="form__group">
+              <label for="room_topic">Room Topic</label>
+              <input required type="text" name="topic" value="{{room.topic.name}}" placeholder="E.g. Mastering Python + Django" list="topic-list" />
+              <datalist id="topic-list">
+                {% for topic in topics %}
+                <option id="room_topic" value="{{topic.name}}">{{topic.name}}</option>
+                {% endfor %}
+              </datalist>
+            </div>
 
-</form>
+            <div class="form__group">
+              <label for="room_name">Room Name</label>
+              {{form.name}}
+            </div>
+
+            <div class="form__group">
+              <label for="room_description">Room Description</label>
+              {{form.description}}
+            </div>
+
+            <div class="form__action">
+          <a class="btn btn--dark" href="{% url 'home' %}">Cancel</a>
+
+          {% if isUpdate %}
+          <button class="btn btn--main" type="submit">Update Room</button>
+          {% else %}
+          <button class="btn btn--main" type="submit">Create Room</button>
+      {% endif %}
+        </div>
+          </form>
+        </div>
+      </div>
     </div>
-</div>
+  </main>
 {% endblock content %}
