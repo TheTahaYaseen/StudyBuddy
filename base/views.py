@@ -202,7 +202,7 @@ def delete_message(request, primary_key):
     return render(request, "base/delete.html", context)
 
 @login_required(login_url="/login")
-def update_profile(request, primary_key):
+def update_profile(request):
 
     user = request.user
     form = UserForm(instance=user) 
