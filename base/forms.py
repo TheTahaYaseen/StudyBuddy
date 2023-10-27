@@ -1,11 +1,12 @@
 from django import forms
 from .models import Room
+from django.contrib.auth.models import User
 
 class RoomForm(forms.ModelForm):
     class Meta:
         model = Room
         fields = "__all__"
-        exclude = ["host", "participants"]
+        exclude = ["host", "participants    "]
 
     def __init__(self, *args, **kwargs):
         super(RoomForm, self).__init__(*args, **kwargs)
@@ -19,3 +20,8 @@ class RoomForm(forms.ModelForm):
         })
         self.fields['name'].label = 'Name:'
         self.fields['description'].label = 'Description:'
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["username", "email"]

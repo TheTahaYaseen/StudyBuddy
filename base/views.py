@@ -11,7 +11,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Q
 
 from .models import Room, Topic, User, Message
-from .forms import RoomForm
+from .forms import RoomForm, UserForm
 
 
 # Create your views here.
@@ -204,8 +204,15 @@ def delete_message(request, primary_key):
 @login_required(login_url="/login")
 def update_profile(request, primary_key):
 
-    user = User.objects.get(id = primary_key)
+    user = request.user
+    form = UserForm(instance=user) 
 
-    context = {"user": user}
+    if request.method == "POST":
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect("user-profile", primary_key= user.id)
+
+    context = {"user": user, "form": form}
 
     return render(request, "base/update_profile.html", context)
