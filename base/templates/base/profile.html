@@ -1,20 +1,53 @@
+
 {% extends "mainlayout.html" %}
 
 {% block content %}
 
-<h4>{{user.username}}</h4>
+<main class="profile-page layout layout--3">
+  <div class="container">
+    <!-- Topics Start -->
+    {% include "base/topic_component.html" %}
+    <!-- Topics End -->
 
-<div class="container mx-auto mt-8">
-    <div class="py-4">
-        <div class="container mx-auto">
-            {% include "base/topic_component.html" %}
+    <!-- Room List Start -->
+    <div class="roomList">
+      <div class="profile">
+        <div class="profile__avatar">
+          <div class="avatar avatar--large active">
+            <img src="https://randomuser.me/api/portraits/men/11.jpg" />
+          </div>
         </div>
+        <div class="profile__info">
+          <h3>{{user.username}}</h3>
+          <p>@{{user.username}}</p>
+          <a href="edit-user.html" class="btn btn--main btn--pill">Edit Profile</a>
+        </div>
+        <!-- <div class="profile__about">
+          <h3>About</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur illo tenetur
+            facilis sunt nemo debitis quisquam hic atque aut? Ducimus alias placeat optio
+            accusamus repudiandae quis ab ex exercitationem rem?
+          </p>
+        </div> -->
+      </div>
+
+      <div class="roomList__header">
+        <div>
+          <h2>Study Rooms Hosted by {{user.username}}</a>
+          </h2>
+          {% include "base/rooms_component.html" %}
+        </div>
+      </div>
     </div>
-    {% include "base/rooms_component.html" %}
+    <!-- Room List End -->
 
-    {% include "base/activity_component.html" %}
-    
-</div>
-
+    <!-- Activities Start -->
+    <div class="activities">
+      {% include "base/activity_component.html" %}
+    </div>
+    <!-- Activities End -->
+  </div>
+</main>
 
 {% endblock content %}
