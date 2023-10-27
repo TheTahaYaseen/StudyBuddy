@@ -161,9 +161,12 @@ def update_room(request, primary_key):
         topic_name = request.POST.get("topic")
         topic, created = Topic.objects.get_or_create(name=topic_name)
 
-        room.topic = topic,
+        room.topic = topic
         room.name = request.POST.get("name"),
         room.description = request.POST.get("description"),
+
+        return redirect('home')
+
 
     context = {"form": form, "isUpdate": True, "topics": topics, "room": room}
 
@@ -195,4 +198,14 @@ def delete_message(request, primary_key):
         message.delete()
         return redirect("home")
     context = {"objectToDelete": f"The Message: {message}"}
+
     return render(request, "base/delete.html", context)
+
+@login_required(login_url="/login")
+def update_profile(request, primary_key):
+
+    user = User.objects.get(id = primary_key)
+
+    context = {"user": user}
+
+    return render(request, "base/update_profile.html", context)
