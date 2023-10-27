@@ -1,15 +1,38 @@
-<div class="mt-8">
-    <h3 class="text-xl font-semibold">Activity Feed</h3>
-    <hr class="my-2">
+<div class="activities">
+    <div class="activities__header">
+      <h2>Recent Activities</h2>
+    </div>
     {% for activity in activity_feed %}
-        <div class="mb-4">
-            <small class="text-gray-600"><a href="{% url 'user-profile' activity.user.id %}">@{{activity.user}}</a> - {{activity.created|timesince}} ago    </small>
-            <h6 class="text-lg font-semibold">replied to "{{activity.room}}"</h6>
-            <p class="text-gray-700">{{activity}}</p>
-            {% if request.user == activity.user %}
-            <a href="{% url 'delete-message' activity.id %}" class="text-red-500 font-semibold hover:underline">Delete</a>
-            {% endif %}
-            <hr class="my-2">
+    <div class="activities__box">
+      <div class="activities__boxHeader roomListRoom__header">
+        <a href="{% url 'user-profile' activity.user.id %}" class="roomListRoom__author">
+          <div class="avatar avatar--small">
+            <img src="https://randomuser.me/api/portraits/women/11.jpg" />
+          </div>
+          <p>
+            @{{activity.user}}
+            <span>{{activity.created|timesince}} ago</span>
+          </p>
+        </a>
+        <div class="roomListRoom__actions">
+        {% if request.user == activity.user %}
+          <a href="{% url 'delete-message' activity.id %}">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+              <title>remove</title>
+              <path
+                d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z"
+              ></path>
+            </svg>
+          </a>
+        {% endif %}
         </div>
+      </div>
+      <div class="activities__boxContent">
+        <p>replied to post <a href="room.html">{{activity}}</a></p>
+        <div class="activities__boxRoomContent">
+            {{activity.room}}
+        </div>
+      </div>
+    </div>
     {% endfor %}
-</div>
+</div>  
