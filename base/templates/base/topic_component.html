@@ -4,7 +4,13 @@
     </div>
     <ul class="topics__list">
     <li>
-        <a href="{% url 'home' %}" class="{% if search == '' %} active {% endif %}">All <span>{{topics.count}}</span></a>
+        <a href="{% url 'home' %}" class="{% if search == '' %} active {% endif %}">All <span>
+          {% if all_topics_count %}
+          {{all_topics_count}}
+          {% else %}
+          {{topics.count}}
+          {% endif %}
+        </span></a>
     </li>
     {% for topic in topics %}
         <li>
