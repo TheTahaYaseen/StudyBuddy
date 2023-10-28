@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="activities__boxContent">
-        <p>replied to post <a href="room.html">{{activity}}</a></p>
+        <p>replied to post <a href="{% url 'room' activity.room.id %}">{{activity}}</a></p>
         <div class="activities__boxRoomContent">
             {{activity.room}}
         </div>
