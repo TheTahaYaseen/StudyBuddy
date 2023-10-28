@@ -82,7 +82,7 @@ def home(request):
     rooms_count = rooms.count()
 
     topics = Topic.objects.all()
-    context = {"rooms" : rooms, "topics": topics, "rooms_count": rooms_count, "activity_feed": activity_feed}
+    context = {"rooms" : rooms, "topics": topics[0:5], "rooms_count": rooms_count, "activity_feed": activity_feed, "search": search}
     
     return render(request,  "base/home.html", context)
 
@@ -112,7 +112,7 @@ def user_profile(request, primary_key):
     activity_feed = user.message_set.all()
     topics = Topic.objects.all()
 
-    context = {"user": user, "rooms": rooms, "activity_feed": activity_feed, "topics": topics}
+    context = {"user": user, "rooms": rooms, "activity_feed": activity_feed, "topics": topics[0:5]}
 
     return render(request,  "base/profile.html", context)   
 
@@ -216,3 +216,14 @@ def update_profile(request):
     context = {"user": user, "form": form}
 
     return render(request, "base/update_profile.html", context)
+
+def topics(request):
+
+    search = request.GET.get("search") if request.GET.get("search") else ""
+
+    topics = Topic.objects.filter(
+        Q(name__icontains=search)
+    )
+
+    context = {"topics": topics}
+    return render(request, "base/topics.html", context)
