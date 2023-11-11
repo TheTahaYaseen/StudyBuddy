@@ -6,7 +6,7 @@ class RoomForm(forms.ModelForm):
     class Meta:
         model = Room
         fields = "__all__"
-        exclude = ["host", "participants    "]
+        exclude = ["host", "participants"]
 
     def __init__(self, *args, **kwargs):
         super(RoomForm, self).__init__(*args, **kwargs)
